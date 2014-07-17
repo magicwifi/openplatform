@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  plugin_id: 1
+  detail: MyText
+  publish_time: 2014-07-01 17:06:41
+  developer: MyString
+  version: MyString
+  category: MyString
+
+two:
+  plugin_id: 1
+  detail: MyText
+  publish_time: 2014-07-01 17:06:41
+  developer: MyString
+  version: MyString
+  category: MyString
