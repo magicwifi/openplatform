@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140702083307) do
+ActiveRecord::Schema.define(:version => 20140723120221) do
 
   create_table "plugin_details", :force => true do |t|
     t.integer  "plugin_id"
@@ -29,9 +29,15 @@ ActiveRecord::Schema.define(:version => 20140702083307) do
 
   create_table "plugins", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
     t.string   "imagename"
+    t.boolean  "ishot",      :default => false
+    t.string   "category",   :default => "cloudwifi"
+    t.string   "installcmd"
+    t.string   "removecmd"
+    t.boolean  "opkg",       :default => false
+    t.string   "renewcmd"
   end
 
   create_table "plugins_routers", :id => false, :force => true do |t|
@@ -45,6 +51,10 @@ ActiveRecord::Schema.define(:version => 20140702083307) do
     t.string   "mac"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "software"
+    t.string   "factory"
+    t.datetime "last_seen"
+    t.boolean  "renew"
   end
 
 end

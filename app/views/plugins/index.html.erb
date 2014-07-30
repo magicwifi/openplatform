@@ -1,28 +1,71 @@
-    <br/>  
+<br/>  
 <div class="g-bd">
-    <div class="bd-main">
-        <div class="bd-tab">
-            <a href="store.php?m=router&a=app&rid=126951" >已安装的插件</a><em>|</em>
-            <a class="current" href="store.php?m=apps&a=ls&rid=126951">全部插件</a><em>|</em>
-                        <a href="store.php?m=router&a=info&rid=126951">路由器信息</a>
-        </div>
-                <!---->
-        <div class="g-app-list app-list-tag">
-            <div class="panel-tit">加速服务</div>
-            <ul class="clearfix">
-  <% @plugins.each do |plugin| %>
-            <!---->
-                <li>
-                                        <a href="store.php?m=plugins&a=install&rid=126951&sid=5" >
-                                          <div class="pic"><img src="./static/images/<%= plugin.imagename %>.png" alt="AppleTV随便看" width="72" height="72" /></div>
-                                          <p class="name">
-                                          <%= plugin.name  %> 
-                                          </p>
-                    </a>
-                </li>
-  <% end %>
-            <!---->
-            </ul>
-        </div>
+  <div class="bd-main">
+    <div class="bd-tab">
+      <a href="/installed?mac=<%= params[:mac] %>" >已安装的插件</a><em>|</em>
+      <a class="current" href="#">全部插件</a><em>|</em>
+      <a href="/message?mac=<%= params[:mac] %>">路由器信息</a>
     </div>
+    <!---->
+    <div class="g-app-list app-list-tag">
+      <div class="panel-tit">云WiFi</div>
+      <ul class="clearfix">
+        <% @cloudwifis.each do |plugin| %>
+          <li>
+          <% if plugin.ishot  %>
+            <span style="background:url(/static/images/hot.png);" class="tag"></span>
+          <% end %>
+          <a href="/plugins/<%= plugin.id %>/?mac=<%=  params[:mac] %>" >
+            <div class="pic"><img src="/static/images/<%= plugin.imagename %>.png"  width="72" height="72" /></div>
+            <p class="name">
+            <%= plugin.name  %> 
+            </p>
+          </a>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    
+
+    <div class="g-app-list app-list-tag">
+      <div class="panel-tit">访问加速</div>
+      <ul class="clearfix">
+        <% @accelerates.each do |plugin| %>
+          <li>
+          <% if plugin.ishot  %>
+            <span style="background:url(/static/images/hot.png);" class="tag"></span>
+          <% end %>
+          <a href="#" >
+            <div class="pic"><img src="/static/images/<%= plugin.imagename %>.png"  width="72" height="72" /></div>
+            <p class="name">
+            <%= plugin.name  %> 
+            </p>
+          </a>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div class="g-app-list app-list-tag">
+      <div class="panel-tit">智能管道</div>
+      <ul class="clearfix">
+        <% @smartdpis.each do |plugin| %>
+          <li>
+          <% if plugin.ishot  %>
+            <span style="background:url(/static/images/hot.png);" class="tag"></span>
+          <% end %>
+          <a href="#" >
+            <div class="pic"><img src="/static/images/<%= plugin.imagename %>.png"  width="72" height="72" /></div>
+            <p class="name">
+            <%= plugin.name  %> 
+            </p>
+          </a>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+
+
+  </div>
 </div>

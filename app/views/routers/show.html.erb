@@ -1,0 +1,131 @@
+
+<script>
+  $(function() {
+    var progressbar = $( "#progressbar-6" );
+    progressLabel = $( ".progress-label" );
+    $( "#progressbar-6" ).progressbar({
+      value: false,
+      change: function() {
+        progressLabel.text( 
+        progressbar.progressbar( "value" ) + "%" );
+      },
+      complete: function() {
+        progressLabel.text( "升级完毕!" );
+      }
+    });
+    function progress() {
+      var val = progressbar.progressbar( "value" ) || 0;
+      progressbar.progressbar( "value", val + 1 );
+      if ( val < 79) {
+        setTimeout( progress, 1000 );
+      }
+    }
+
+    function romupdate() {
+      var rmac = $("#routermac2").val();
+
+      var url = "http://117.34.78.195/publish?id="+rmac,
+          cmd = "Conf:sysupgrade -b /etc/back.tar.gz;sysupgrade -f /etc/back.tar.gz -v /tmp/openwrt.bin";
+      $.post("/renew", {mac:rmac});
+      $.post(url, cmd);
+    }
+
+    function finishupdate() {
+      progressbar.progressbar( "value", 1000);
+    }
+
+    $( "#progresshide2" ).hide();
+
+    $(document).ready(function() {
+
+      $('#updaterom').click(function(){
+        $( "#progresshide2" ).show();
+        romupdate();
+        setTimeout( progress, 3000 );
+        setTimeout( finishupdate, 100000 );
+      });
+
+    });
+  });
+
+
+</script>
+
+<link rel='stylesheet' href="./static/css/pop.css?v=7ae2cc1f7a46bcea5627ff30ae98bdafa41ebdd4" type='text/css' media='all' />
+<style type="text/css">
+	         .ui-widget-header {
+            background: #3498db;
+            border: 1px solid #DDDDDD;
+            color: #333333;
+            font-weight: bold;
+         }
+         .progress-label {
+            position: absolute;
+            left: 50%;
+            font-weight: bold;
+            text-shadow: 1px 1px 0 #fff;
+         }
+#hour, #notify{ height:25px;line-height:25px;}
+</style>
+
+<div class="g-bd">
+    <div class="bd-main">
+        <div class="bd-tab">
+          <a  href="/installed?mac=<%= params[:mac] %>" >已安装的插件</a><em>|</em>
+      <a  href="/plugins?mac=<%= params[:mac] %>">全部插件</a><em>|</em>
+                        <a href="#" class="current">路由器信息</a>
+        </div>        <div class="msg-main">
+            <div class="left"></div>
+            <div class="info">
+                <div class="tab-content">
+                    <div class="panel">
+                    <ul class="text-list router-info-list clearfix">
+                      <li><span>MAC地址：</span><em id="devid"><%= @router.mac %></em></li>
+                      <li><span>设备型号：</span><em id="router_name"><%= @router.factory %></em><input type="input" id="new_name" value="" maxlength="20" style="display:none">&nbsp;<a href="#" id="editname">修改</a><a href="#" id="submitname" style="display:none">修改</a></li>
+                                                <!--<li><span>加速应用：</span><em></em>&nbsp;个</li>-->
+                                                <% if !@router.last_seen.nil? %>
+                                                <li><span>最近登陆：</span><%= @router.last_seen.strftime("%Y-%m-%D") %></li>
+                                              <% end %>
+                        <li><span>在线状态：</span><em id="online_status">在线</em></li>
+                        <li><span>固件版本：</span><em id="online_status"><%= @router.software %></em></li>
+                   
+                    </ul>
+                    </div>
+                    <div class="panel">
+                    <div class="rom" style="padding-bottom:10px;">
+                        <h3> 启动固件更新：</h3>
+          
+                            <a class="button"  id="updaterom"  href="#">更&nbsp;&nbsp;新</a>
+                         <input type="hidden" id="routermac2" value="<%= params[:mac] %>"/>
+             <div id="progresshide2">
+                <br/>
+     <div id="progressbar-6">
+         
+         <div class="progress-label">
+            启动固件升级...
+         </div>
+      </div>
+						</div>
+                  
+                    </div>
+                    </div>
+                    <div class="panel">
+                    <div class="rom">
+                        <h3> 插件自动更新：</h3>
+                        <form method="post" name="pluginform">
+                            <div>
+                                自动更新：
+                               <input type="radio" name="autoupgrade" value="1" >是
+                               <input type="radio" name="autoupgrade" value="0"  checked >否                     </div>
+                         <input type="hidden" name="pluginsubmit" value="1"/>
+                         <a class="button"  href="#">保&nbsp;&nbsp;存</a>
+                        </form>
+                    </div>
+                    </div>
+              
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

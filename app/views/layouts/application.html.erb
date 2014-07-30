@@ -2,8 +2,11 @@
 <html>
 <head>
   <title>云WiFi应用平台</title>
-<link rel="stylesheet" href="./static/css/default.css?v=2014070110000" type="text/css"/>
-<link rel='stylesheet' href="./static/css/app-g.css?v=2014070110000" type='text/css' media='all' />
+<link rel="stylesheet" href="/static/css/default.css?v=2014070110000" type="text/css"/>
+<link rel='stylesheet' href="/static/css/app-g.css?v=2014070110000" type='text/css' media='all' />
+   <link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+      <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+      <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 </head>
 <body>
 
@@ -11,12 +14,12 @@
 <div class="header-main">
     <div class="header-top">
         <a href="store.php" class="logo"></a>
-                <div id="user-menu"><span>当前路由器：极路由_05E72A，<a href="store.php?m=oauth&a=logout">退出</a>。绑定 <a href="javascript:void(0)" id="bind_user" >HiWiFi 账号</a>, 可远程管理路由器<span></div>
+        <div id="user-menu"><span>当前路由器：<%= @router.factory %>，<a href="store.php?m=oauth&a=logout">退出</a>。绑定 <a href="javascript:void(0)" id="bind_user" > 账号</a>, 可远程管理路由器<span></div>
                 <div class="right-bar" id="newcard"></div>
     </div>
         <div class="tab-bar">
                 <ul>
-            <li class="current"><a  href="store.php?m=router&a=app&rid=126951" class="on" style="font-size:14px" >极路由_05E72A</a></li>
+                  <li class="current"><a  href="store.php?m=router&a=app&rid=126951" class="on" style="font-size:14px" ><%= @router.factory %></a></li>
             <li class="add"><a title="添加路由器" href="#" onclick="login()" class="add-i"></a> </li>
         </ul>
             </div>
@@ -28,7 +31,7 @@
 
 <div class="g-footer">
     <div class="footer-main">
-		<p><a href="http://www.hiwifi.com/about/">关于极路由</a><span class="pipe">|</span><a href="http://www.miibeian.gov.cn/" target="_blank">京ICP备13008126号</a><span class="pipe">|</span><a href="http://www.hiwifi.com/contact/">联系我们</a></p>
+		<p><a href="#">关于云Wifi</a><span class="pipe">|</span><a href="#" target="_blank">京ICP备13008126号</a><span class="pipe">|</span><a href="#">联系我们</a></p>
 		<p>Copyright&copy; 2012-2014 HiWiFi.com</p>
     </div>
 </div>

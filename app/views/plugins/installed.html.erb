@@ -1,5 +1,68 @@
 
-  <% @plugins.each do |plugin| %>
-    <%= link_to plugin.name, plugin %> 
-    <br/>  
-  <% end %>
+<br/>  
+<div class="g-bd">
+  <div class="bd-main">
+    <div class="bd-tab">
+      <a class="current" href="#" >已安装的插件</a><em>|</em>
+      <a  href="/plugins?mac=<%= params[:mac] %>">全部插件</a><em>|</em>
+      <a href="/message?mac=<%= params[:mac] %>">路由器信息</a>
+    </div>
+    <!---->
+    <div class="g-app-list app-list-tag">
+      <div class="panel-tit"></div>
+      <ul class="clearfix">
+        <% @plugins.each do |plugin| %>
+          <li>
+          <a href="/plugins/<%= plugin.id %>/?mac=<%=  params[:mac] %>" >
+            <div class="pic"><img src="/static/images/<%= plugin.imagename %>.png"  width="72" height="72" /></div>
+            <p class="name">
+            <%= plugin.name  %> 
+            </p>
+          </a>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    
+
+    <div class="recommend-list">
+      <div class="title">插件选荐</div>
+      <ul class="clearfix">
+        <!---->
+        <li>
+        <a href="#">
+          <span style="background:url(/static/images/hot.png);" class="tag"></span>
+          <div class="pic"><img src="/static/images/plus_smartqos.png"></div>
+          <dl class="info">
+            <dt>智能QoS</dt>
+            <dd>小编推荐：有了它，即使隔壁哥们BT下载，也不影响我上网和玩游戏了</dd>
+          </dl>
+        </a>
+        </li>
+        <!---->
+        <li>
+        <a href="#">
+          <span style="background:url(/static/images/hot.png);" class="tag"></span>
+          <div class="pic"><img src="/static/images/wifidog.png"></div>
+          <dl class="info">
+            <dt>广告推送</dt>
+            <dd>小编推荐：这是一款人气非常高的第三方插件，能够定制自己的的广告</dd>
+          </dl>
+        </a>
+        </li>
+        <!---->
+        <li>
+        <a href="#">
+          <span style="background:url(/static/images/new.png);" class="tag"></span>
+          <div class="pic"><img src="/static/images/xdown.png"></div>
+          <dl class="info">
+            <dt>离线下载</dt>
+            <dd>小编推荐：远程下载视频，独享蓝光超清码流</dd>
+          </dl>
+        </a>
+        </li>
+        <!---->
+      </ul>
+    </div>
+  </div>
+</div>

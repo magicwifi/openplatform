@@ -1,0 +1,7 @@
+#mask{ position: absolute; top:0; left: 0; width: 100%; height: 100%; background: #000; opacity: 0.8;}
+#popbox{ position: absolute; width: 34%; background: #fff; padding: 15px 30px 30px; text-align: center;}
+#popbox h2{ font-size: 20px;}
+#popbox p{ line-height: 180%; font-size: 14px; color: #666; margin-bottom: 30px;}
+#popbox p b{ color: #1FB9F2;}
+#popbox .btn{ background: #1FB9F2; color: #fff; font-size: 14px; text-decoration: none; padding: 5px 15px; margin: 0 5px;}
+#popbox .btn.grey{ background: #aaa;}

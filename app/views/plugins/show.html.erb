@@ -1,6 +1,215 @@
-<%= @plugin_detail.detail  %> <br/>
-<%= @plugin_detail.version  %> <br/>
-<%= @plugin_detail.developer  %> <br/>
-<%= @plugin_detail.publish_time  %> <br/>
-<%= @plugin_detail.category  %> <br/>
+
+<script>
+  $(function() {
+    var progressbar = $( "#progressbar-5" );
+    progressLabel = $( ".progress-label" );
+    $( "#progressbar-5" ).progressbar({
+      value: false,
+      change: function() {
+        progressLabel.text( 
+        progressbar.progressbar( "value" ) + "%" );
+      },
+      complete: function() {
+        progressLabel.text( "Loading Completed!" );
+      }
+    });
+    function progress() {
+      var val = progressbar.progressbar( "value" ) || 0;
+      progressbar.progressbar( "value", val + 1 );
+      if ( val < 98 ) {
+        setTimeout( progress, 100 );
+      }
+    }
+    function finishopkg() {
+    
+
+      var rmac = $("#routermac").val(),
+      pluginid = $("#pluginid").val(),
+      pstatus = $("#pstatus").val(),
+      url = "http://124.127.116.178/installed?mac="+rmac;
+
+      $.post( "/checkpstatus", { routermac:rmac, imagename:pluginid })
+        .done(function( data ) {
+          if (data == pstatus){
+            progressbar.progressbar( "value", 100);
+            location.href = url; 
+          }
+          else {
+            setTimeout( finishopkg, 1000 );
+          }
+      });
+
+    }
+
+    function finish() {
+
+      var rmac = $("#routermac").val(),
+      pluginid = $("#pluginid").val(),
+      pstatus = $("#pstatus").val(),
+      url = "http://124.127.116.178/installed?mac="+rmac;
+
+      $.post( "/"+pstatus+"ing", { routermac:rmac, imagename:pluginid })
+        .done(function( data ) {
+          if (data == "success"){
+            progressbar.progressbar( "value", 100);
+            location.href = url; 
+          }
+      });
+
+    }
+
+    function requestinstall() {
+      var routermac = $("#routermac").val(),
+      pluginimage = $("#pluginid").val()
+      pstatus = $("#pstatus").val(),
+      installcmd = $("#installcmd").val();
+
+      var url = "http://117.34.78.195/publish?id="+routermac,
+          cmd = "Conf:"+installcmd;
+      $.post(url, cmd);
+
+    }
+
+    function requestremove() {
+      var routermac = $("#routermac").val(),
+      pluginimage = $("#pluginid").val()
+      pstatus = $("#pstatus").val(),
+      removecmd = $("#removecmd").val();
+
+      var url = "http://117.34.78.195/publish?id="+routermac,
+          cmd = "Conf:"+removecmd;
+      $.post(url, cmd);
+
+    }
+
+    $( "#progresshide" ).hide();
+
+
+    $(document).ready(function() {
+      $('#installing').click(function(){
+        $( "#progresshide" ).show();
+        requestinstall();
+        var opkg = $("#opkg").val(); 
+        setTimeout( progress, 3000 );
+        if (opkg == "true"){
+          setTimeout( finishopkg, 5000 );
+          }else{
+
+          setTimeout( finish, 10000 );
+          }
+      });
+
+      $('#uninstalling').click(function(){
+        $( "#progresshide" ).show();
+        requestremove();
+        var opkg = $("#opkg").val(); 
+        setTimeout( progress, 3000 );
+        if (opkg == "true"){
+          setTimeout( finishopkg, 5000 )
+        }else{
+          
+          setTimeout( finish, 10000 );
+        };
+      });
+
+      $('#xdown').click(function(){
+        var routermac = $("#routermac").val();
+        var url = "http://117.34.78.195/publish?id="+routermac,
+        cmd = "Conf:cd /usr/datas/;wget http://124.127.116.177/helloworld.apk";
+        $.post(url, cmd);
+
+      });
+
+    });
+  });
+
+
+</script>
+
+<style type="text/css">
+	         .ui-widget-header {
+            background: #3498db;
+            border: 1px solid #DDDDDD;
+            color: #333333;
+            font-weight: bold;
+         }
+         .progress-label {
+            position: absolute;
+            left: 50%;
+            font-weight: bold;
+            text-shadow: 1px 1px 0 #fff;
+         }
+</style>
+<div class="g-bd">
+    <div class="bd-main">
+ 
+        <div class="app-detail-main clearfix">
+          <div class="left"><img src="/static/images/<%= @plugin.imagename %>.png" alt="教育网IPv6" width="144" height="144" class="plus-icon"></div>
+            <div class="info">
+                <h2><%= @plugin.name %>
+                                    </h2>
+
+                <ul id="detail-list" class="plus-item">
+                    <li>类别：<%= @plugin_detail.category %></li>
+                                            <li class="large">
+                            当前版本：<%= @plugin_detail.version %>
+                        </li>
+                                        <li>应用作者：<%= @plugin_detail.developer %> </li>
+                                            <li class="large">发布时间：<%= @plugin_detail.publish_time.strftime("%Y-%m-1") %></li>
+                                    </ul>
+
+          <input type="hidden" id="routermac" value="<%= params[:mac] %>"  />
+          <input type="hidden" id="pluginid" value="<%= @plugin.imagename %>"  />
+          <input type="hidden" id="opkg" value="<%= @plugin.opkg %>"  />
+
+                                    <% if @installed %>
+                <!-- 显示安装按钮开始 --><a class="button disabled" href="#" id="uninstalling"><span class="uninstall">卸载插件</span></a>
+          <input type="hidden" id="pstatus" value="remove"  />
+          <input type="hidden" id="removecmd" value="<%= @plugin.removecmd %>"  />
+                                    <% else %>
+                
+                                                                                                    <a class="button" href="#" k="1" id="installing"><span class="download">免费安装</span></a>
+          <input type="hidden" id="pstatus" value="install"  />
+          <input type="hidden" id="installcmd" value="<%= @plugin.installcmd %>"  />
+                                                                                     <!-- 显示安装按钮结束 -->
+              <% end %>
+             <div id="progresshide">
+                <br/>
+     <div id="progressbar-5">
+         
+         <div class="progress-label">
+            Loading...
+         </div>
+      </div>
+						</div>
+                <div class="detail-msg">
+                    <div class="sub-tab">
+                        <a href="javascript:;" id="p_desc"  class="current" >功能介绍</a>
+                        <span>|</span>
+                        <a href="#" id="p_zhinan" >服务指南</a>
+                                                <span>|</span>
+                        <a href="#" id="p_version" >版本变动</a>
+                                            </div>
+                                            <div class="plus-item"><span>类别： <%= @plugin_detail.category %></span>  /  <span>应用作者：  <%= @plugin_detail.developer %></span>  /  <span>当前版本：  <%= @plugin_detail.version %> </span>  /  <span>发布时间：  <%= @plugin_detail.publish_time.strftime("%Y-%m-1") %> </span></div>
+                    <div class="detail-box" id="desc">
+                      <p><%= @plugin_detail.detail %></p>
+                      <p><%= @plugin_detail.desc1 %></p>
+                      <p><%= @plugin_detail.desc2 %></p>
+                      <p><%= @plugin_detail.desc3 %></p>
+                      <% if @plugin.imagename =="xdown" %>
+                      <br>  
+                      <a class="button" href="#" k="1" id="xdown"><span class="download" >离线下载测试</span></a>
+                      <% end %>
+                                            </div>
+                    <div class="detail-box" id="version" style ="display:none">
+                    </div>
+                    <div class="detail-box" id="zhinan" style ="display:none">
+                        <p>该插件由北京极科极客科技有限公司提供，请咨询应用作者。</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
 
