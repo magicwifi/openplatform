@@ -1,3 +1,6 @@
+# encoding: utf-8
+require 'httparty'
+
 class RoutersController < ApplicationController
 
   def ping
@@ -22,5 +25,17 @@ class RoutersController < ApplicationController
    render :text =>"success"
   end
 
+  def checkstat
+    result = HTTParty.get("http://117.34.78.195/channels-stats?id=#{params[:mac]}", 
+      :headers => { 'Content-Type' => 'application/json' } )
+      if result.nil?
+        back = "Not Ready"
+      elsif result["subscribers"].to_i >= 1 
+        back = result["channel"]
+      else
+        back = "Not Ready"  
+      end
+      render :text =>back
+  end
 
 end

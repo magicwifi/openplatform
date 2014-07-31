@@ -33,6 +33,18 @@
     function finishupdate() {
       progressbar.progressbar( "value", 1000);
     }
+    function finishtest() {
+      //progressbar.progressbar( "value", 1000);
+      var rmac = $("#routermac2").val();
+      $.get("/checkstat?mac="+rmac, function(data){
+        if (data == rmac){
+            progressbar.progressbar( "value", 100);
+          }
+          else{
+          setTimeout( finishtest, 10000 );
+        }
+      });
+    }
 
     $( "#progresshide2" ).hide();
 
@@ -40,9 +52,11 @@
 
       $('#updaterom').click(function(){
         $( "#progresshide2" ).show();
-        romupdate();
+        //finishtest();
+        //romupdate();
         setTimeout( progress, 3000 );
-        setTimeout( finishupdate, 100000 );
+        //setTimeout( finishupdate, 100000 );
+        setTimeout( finishtest, 100000 );
       });
 
     });
