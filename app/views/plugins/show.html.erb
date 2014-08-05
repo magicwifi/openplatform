@@ -64,9 +64,8 @@
       pstatus = $("#pstatus").val(),
       installcmd = $("#installcmd").val();
 
-      var url = "http://117.34.78.195/publish?id="+routermac,
-          cmd = "Conf:"+installcmd;
-      $.post(url, cmd);
+      var cmdarg = "Conf:"+installcmd;
+          $.post("/publishcmd", { mac: routermac, cmd:cmdarg } );
 
     }
 

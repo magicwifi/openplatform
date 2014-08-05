@@ -1,4 +1,5 @@
 class PluginsController < ApplicationController
+  before_filter :check_admin
 
   def index
     r = Router.find_by_mac(params[:mac])

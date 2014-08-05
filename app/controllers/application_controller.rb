@@ -1,3 +1,10 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery
+
+
+  def check_admin
+    unless session[:token]
+      redirect_to "/404"
+    end
+  end
+
 end

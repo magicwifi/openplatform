@@ -8,5 +8,7 @@ Routerapp::Application.routes.draw do
   post "checkpstatus" => "plugins#checkpstatus"
   get "checkstat" => "routers#checkstat"
   post "removeing" => "plugins#uninstalling"
+  post "login_session" => "routers#create_login_session"
+  post "publishcmd" => "routers#pub_cmd"
   resources :plugins
 end

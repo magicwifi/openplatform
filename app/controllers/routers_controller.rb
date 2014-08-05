@@ -2,6 +2,7 @@
 require 'httparty'
 
 class RoutersController < ApplicationController
+  before_filter :check_admin, :only=>:pub_cmd
 
   def ping
     render :text => Router.ping(params)
@@ -35,7 +36,22 @@ class RoutersController < ApplicationController
       else
         back = "Not Ready"  
       end
-      render :text =>back
+      render :text => back
+  end
+
+  def create_login_session
+   router = Router.find_by_mac(params[:mac])
+    if router && params[:inet] 
+      session[:token] = SecureRandom.urlsafe_base64(nil, false)
+      redirect_to "/plugins?mac=#{ params[:mac]} "
+    else
+      redirect_to "/404"
+    end
+  end
+
+  def pub_cmd
+    HTTParty.post("http://117.34.78.195/publish?id=#{params[:mac]}",:body =>params[:cmd] )
+    render :text => "success"
   end
 
 end
