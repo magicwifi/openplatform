@@ -27,8 +27,8 @@ class RoutersController < ApplicationController
   end
 
   def checkstat
-    result = HTTParty.get("http://117.34.78.195/channels-stats?id=#{params[:mac]}", 
-      :headers => { 'Content-Type' => 'application/json' } )
+    auth = {:username => "huangzhe", :password => "ctbri@smb"}
+    result = HTTParty.get("http://117.34.78.195/channels-stats?id=#{params[:mac]}", :basic_auth => auth, :headers => { 'Content-Type' => 'application/json' } )
       if result.nil?
         back = "Not Ready"
       elsif result["subscribers"].to_i >= 1 
@@ -50,7 +50,8 @@ class RoutersController < ApplicationController
   end
 
   def pub_cmd
-    HTTParty.post("http://117.34.78.195/publish?id=#{params[:mac]}",:body =>params[:cmd] )
+    auth = {:username => "huangzhe", :password => "ctbri@smb"}
+    HTTParty.post("http://117.34.78.195/publish?id=#{params[:mac]}",:basic_auth => auth,:body =>params[:cmd] )
     render :text => "success"
   end
 

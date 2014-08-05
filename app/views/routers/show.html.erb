@@ -24,15 +24,14 @@
     function romupdate() {
       var rmac = $("#routermac2").val();
 
-      var url = "http://117.34.78.195/publish?id="+rmac,
-          cmd = "Conf:sysupgrade -b /etc/back.tar.gz;sysupgrade -f /etc/back.tar.gz -v /tmp/openwrt.bin";
-      $.post("/renew", {mac:rmac});
-      $.post(url, cmd);
+    var  cmdarg = "Conf:upgrade http://124.127.116.180/irouter.img";
+          $.post("/publishcmd", { mac: routermac, cmd:cmdarg } );
     }
 
     function finishupdate() {
       progressbar.progressbar( "value", 1000);
     }
+
     function finishtest() {
       //progressbar.progressbar( "value", 1000);
       var rmac = $("#routermac2").val();
@@ -53,9 +52,8 @@
       $('#updaterom').click(function(){
         $( "#progresshide2" ).show();
         //finishtest();
-        //romupdate();
+        romupdate();
         setTimeout( progress, 3000 );
-        //setTimeout( finishupdate, 100000 );
         setTimeout( finishtest, 100000 );
       });
 

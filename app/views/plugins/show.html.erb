@@ -75,9 +75,9 @@
       pstatus = $("#pstatus").val(),
       removecmd = $("#removecmd").val();
 
-      var url = "http://117.34.78.195/publish?id="+routermac,
-          cmd = "Conf:"+removecmd;
-      $.post(url, cmd);
+      var cmdarg = "Conf:"+removecmd;
+          $.post("/publishcmd", { mac: routermac, cmd:cmdarg } );
+
 
     }
 
@@ -113,9 +113,8 @@
 
       $('#xdown').click(function(){
         var routermac = $("#routermac").val();
-        var url = "http://117.34.78.195/publish?id="+routermac,
-        cmd = "Conf:cd /usr/datas/;wget http://124.127.116.177/helloworld.apk";
-        $.post(url, cmd);
+      var cmdarg = "Conf:cd /usr/datas/;wget http://124.127.116.177/helloworld.apk";
+          $.post("/publishcmd", { mac: routermac, cmd:cmdarg } );
 
       });
 
