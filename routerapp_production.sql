@@ -78,7 +78,7 @@ CREATE TABLE `plugins` (
 
 LOCK TABLES `plugins` WRITE;
 /*!40000 ALTER TABLE `plugins` DISABLE KEYS */;
-INSERT INTO `plugins` VALUES (4,'远程关机','2014-07-01 07:47:09','2014-07-02 09:30:00','shutdown',0,'cloudwifi',NULL,NULL,0,NULL),(8,'广告推送','2014-07-01 07:47:21','2014-07-30 08:53:19','wifidog',1,'cloudwifi','opkg update;opkg install wifidog;/usr/datas/opkg/usr/bin/wifidog &','wdctl stop;opkg remove wifidog;',1,'wdctl stop;opkg remove wifidog'),(9,'智能QoS','2014-07-18 01:21:34','2014-07-23 12:44:21','plus_smartqos',0,'cloudwifi','/etc/init.d/smartqos start;/etc/init.d/smartqos enable','/etc/init.d/smartqos stop;/etc/init.d/smartqos disable',0,'/etc/init.d/smartqos disable;'),(10,'离线下载','2014-07-18 01:24:38','2014-07-23 12:45:00','xdown',0,'cloudwifi','opkg update;opkg install xdown','opkg remove xdown',1,'opkg remove xdown;'),(11,'豌豆荚加速','2014-07-18 05:31:29','2014-07-18 05:37:01','plus_wandoujia',0,'accelerate',NULL,NULL,0,NULL),(12,'AppStore加速','2014-07-18 05:33:27','2014-07-18 05:33:27','plus_appstore',0,'accelerate',NULL,NULL,0,NULL),(13,'91加速','2014-07-18 05:40:31','2014-07-18 05:40:31','plus_91',0,'accelerate',NULL,NULL,0,NULL),(14,'CF加速','2014-07-18 05:42:57','2014-07-18 05:42:57','plus_cf',0,'accelerate',NULL,NULL,0,NULL),(15,'远程重启','2014-07-18 06:24:25','2014-07-18 06:30:03','plus_reboot',0,'cloudwifi',NULL,NULL,0,NULL),(16,'开发者模式','2014-07-18 06:25:12','2014-07-18 06:29:57','plus_develop',0,'cloudwifi',NULL,NULL,0,NULL),(17,'淘宝DPI','2014-07-18 06:44:38','2014-07-18 06:44:38','dpi_taobao',0,'smartdpi',NULL,NULL,0,NULL),(18,'视频DPI','2014-07-18 06:45:00','2014-07-18 06:45:00','dpi_youku',0,'smartdpi',NULL,NULL,0,NULL),(19,'腾讯DPI','2014-07-18 06:45:27','2014-07-18 06:45:27','dpi_tencent',0,'smartdpi',NULL,NULL,0,NULL);
+INSERT INTO `plugins` VALUES (4,'远程关机','2014-07-01 07:47:09','2014-07-02 09:30:00','shutdown',0,'cloudwifi',NULL,NULL,0,NULL),(8,'广告推送','2014-07-01 07:47:21','2014-10-29 06:04:31','smartwifi',1,'cloudwifi','opkg update;opkg install smartwifi;/etc/init.d/smartwifi enable;smartwifi','smctl stop;/etc/init.d/smartwifi disable;opkg remove smartwifi;',1,'smctl stop;opkg remove smartwifi'),(9,'智能QoS','2014-07-18 01:21:34','2014-07-23 12:44:21','plus_smartqos',0,'cloudwifi','/etc/init.d/smartqos start;/etc/init.d/smartqos enable','/etc/init.d/smartqos stop;/etc/init.d/smartqos disable',0,'/etc/init.d/smartqos disable;'),(10,'离线下载','2014-07-18 01:24:38','2014-10-27 05:53:15','xdown',0,'cloudwifi','opkg update;opkg install xdown','opkg remove xdown',0,'opkg remove xdown;'),(11,'豌豆荚加速','2014-07-18 05:31:29','2014-07-18 05:37:01','plus_wandoujia',0,'accelerate',NULL,NULL,0,NULL),(12,'AppStore加速','2014-07-18 05:33:27','2014-07-18 05:33:27','plus_appstore',0,'accelerate',NULL,NULL,0,NULL),(13,'91加速','2014-07-18 05:40:31','2014-07-18 05:40:31','plus_91',0,'accelerate',NULL,NULL,0,NULL),(14,'CF加速','2014-07-18 05:42:57','2014-07-18 05:42:57','plus_cf',0,'accelerate',NULL,NULL,0,NULL),(15,'远程重启','2014-07-18 06:24:25','2014-07-18 06:30:03','plus_reboot',0,'cloudwifi',NULL,NULL,0,NULL),(16,'开发者模式','2014-07-18 06:25:12','2014-07-18 06:29:57','plus_develop',0,'cloudwifi',NULL,NULL,0,NULL),(17,'淘宝DPI','2014-07-18 06:44:38','2014-07-18 06:44:38','dpi_taobao',0,'smartdpi',NULL,NULL,0,NULL),(18,'视频DPI','2014-07-18 06:45:00','2014-07-18 06:45:00','dpi_youku',0,'smartdpi',NULL,NULL,0,NULL),(19,'腾讯DPI','2014-07-18 06:45:27','2014-07-18 06:45:27','dpi_tencent',0,'smartdpi',NULL,NULL,0,NULL);
 /*!40000 ALTER TABLE `plugins` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -102,7 +102,7 @@ CREATE TABLE `plugins_routers` (
 
 LOCK TABLES `plugins_routers` WRITE;
 /*!40000 ALTER TABLE `plugins_routers` DISABLE KEYS */;
-INSERT INTO `plugins_routers` VALUES (1,1),(2,1),(4,1),(8,1);
+INSERT INTO `plugins_routers` VALUES (1,1),(2,1),(4,1),(8,1),(8,3);
 /*!40000 ALTER TABLE `plugins_routers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -132,7 +132,7 @@ CREATE TABLE `routers` (
 
 LOCK TABLES `routers` WRITE;
 /*!40000 ALTER TABLE `routers` DISABLE KEYS */;
-INSERT INTO `routers` VALUES (1,'11:22:33:44:55:66','2014-07-01 06:52:26','2014-07-24 03:53:34','1.1','linux','2014-07-24 03:02:39',1),(2,'0C8268DEC1C6','2014-07-20 06:32:18','2014-07-24 05:33:56','1.1','tl-wr703n','2014-07-24 05:33:56',0),(3,'002293AABB24','2014-07-25 13:24:14','2014-07-25 13:24:14','1.1','智慧网关',NULL,NULL);
+INSERT INTO `routers` VALUES (1,'11:22:33:44:55:66','2014-07-01 06:52:26','2014-07-24 03:53:34','1.1','linux','2014-07-24 03:02:39',1),(2,'0C8268DEC1C6','2014-07-20 06:32:18','2014-08-05 07:29:15','1.1','tl-wr703n','2014-08-05 07:29:15',0),(3,'A8574EFCC6E8','2014-07-25 13:24:14','2014-10-24 07:32:57','1.1','智慧网关',NULL,NULL);
 /*!40000 ALTER TABLE `routers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -168,4 +168,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-07-31 14:40:30
+-- Dump completed on 2014-10-29 16:10:05

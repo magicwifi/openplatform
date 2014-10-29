@@ -20,8 +20,8 @@
         setTimeout( progress, 100 );
       }
     }
+
     function finishopkg() {
-    
 
       var rmac = $("#routermac").val(),
       pluginid = $("#pluginid").val(),
@@ -111,12 +111,6 @@
         };
       });
 
-      $('#xdown').click(function(){
-        var routermac = $("#routermac").val();
-      var cmdarg = "Conf:cd /usr/datas/;wget http://124.127.116.177/helloworld.apk";
-          $.post("/publishcmd", { mac: routermac, cmd:cmdarg } );
-
-      });
 
     });
   });
@@ -194,11 +188,6 @@
                       <p><%= @plugin_detail.desc1 %></p>
                       <p><%= @plugin_detail.desc2 %></p>
                       <p><%= @plugin_detail.desc3 %></p>
-                      <% if @plugin.imagename =="xdown" %>
-                      <br>  
-                      <a class="button" href="#" k="1" id="xdown"><span class="download" >离线下载测试</span></a>
-                      <% end %>
-                                            </div>
                     <div class="detail-box" id="version" style ="display:none">
                     </div>
                     <div class="detail-box" id="zhinan" style ="display:none">

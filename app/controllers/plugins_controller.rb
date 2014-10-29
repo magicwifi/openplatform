@@ -1,5 +1,5 @@
 class PluginsController < ApplicationController
-  before_filter :check_admin
+  before_filter :check_admin, :except => [:installing, :uninstalling]
 
   def index
     r = Router.find_by_mac(params[:mac])
@@ -62,6 +62,17 @@ class PluginsController < ApplicationController
     render :text => "success"
   end
 
+  def boot
+    r = Router.find_by_mac(params[:mac]);
+    plugins = Plugin.all - r.plugins;
+    bootcmd = "Conf:";
+    for p in plugins
+      if p.opkg && p.removecmd
+        bootcmd += p.removecmd
+      end
+    end
+    render :text => bootcmd
+  end
 
   def show
     r = Router.find_by_mac(params[:mac])

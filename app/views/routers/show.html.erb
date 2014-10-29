@@ -22,14 +22,18 @@
     }
 
     function romupdate() {
-      var rmac = $("#routermac2").val();
+      var routermac = $("#routermac2").val();
 
-    var  cmdarg = "Conf:upgrade http://124.127.116.180/irouter.img";
+    var  cmdarg = "Conf:sysupgrade -v http://124.127.116.177/ar71xx/openwrt.bin";
           $.post("/publishcmd", { mac: routermac, cmd:cmdarg } );
     }
+ 
+    function bootupdate() {
+      var routermac = $("#routermac2").val();
 
-    function finishupdate() {
-      progressbar.progressbar( "value", 1000);
+      $.post("/boot", { mac: routermac } ,function(data){
+          $.post("/publishcmd", { mac: routermac, cmd:data } );
+      });
     }
 
     function finishtest() {
@@ -37,6 +41,7 @@
       var rmac = $("#routermac2").val();
       $.get("/checkstat?mac="+rmac, function(data){
         if (data == rmac){
+            bootupdate()
             progressbar.progressbar( "value", 100);
           }
           else{

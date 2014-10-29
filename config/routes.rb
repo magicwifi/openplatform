@@ -6,9 +6,10 @@ Routerapp::Application.routes.draw do
   post "installing" => "plugins#installing"
   post "uninstalling" => "plugins#uninstalling"
   post "checkpstatus" => "plugins#checkpstatus"
+  post "boot" => "plugins#boot"
   get "checkstat" => "routers#checkstat"
   post "removeing" => "plugins#uninstalling"
-  post "login_session" => "routers#create_login_session"
+  get "login_session" => "routers#create_login_session"
   post "publishcmd" => "routers#pub_cmd"
   resources :plugins
 end
