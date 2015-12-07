@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  mac: MyString
+  last_seen: 2015-11-10 14:41:16
+
+two:
+  mac: MyString
+  last_seen: 2015-11-10 14:41:16
