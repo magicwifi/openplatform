@@ -2,7 +2,7 @@ class XbeesController < ApplicationController
 
   def alldetail
      xbee_list = []
-     xbee = Xbee.all
+     xbees = Xbee.all
      xbees.each do |xbee|
         if xbee.running? 
 	   xbee_list <<{:mac=>xbee.mac,:status => 'on' }
@@ -14,16 +14,7 @@ class XbeesController < ApplicationController
   end
   
   def detail
-    xbees = params[:xbees]
-    status = params[:status]
-    len = xbees.length-1
-    for i in 0..len
-        xbee = Xbee.find_by_mac(xbee[i])
-	xbee.status = status[i] 
-	xbee.last_seen = Time.now
-        xbee.save   
-    end 
-    render :text =>'success' 
+    render :text => Xbee.detail(params) 
   end
 
 end

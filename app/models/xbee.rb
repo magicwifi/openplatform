@@ -9,4 +9,20 @@ class Xbee < ActiveRecord::Base
     end 
   end 
 
+
+  def self.detail(params)
+    xbees = params[:xbees]
+    status = params[:status]
+    len = xbees.length-1
+    for i in 0..len
+        xbee = Xbee.find_by_mac(xbees[i])
+	xbee.status = status[i] 
+	xbee.last_seen = Time.now
+        xbee.save   
+    end 
+    'success' 
+  end
+
+
+
 end
